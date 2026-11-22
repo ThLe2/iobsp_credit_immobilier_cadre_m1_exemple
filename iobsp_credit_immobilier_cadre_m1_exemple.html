@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exemple commenté — un calendrier, deux codes</title><style>
+:root{--prune:#8C1E70;--prune-fonce:#5E1349;--prune-clair:#F4E6EE;--accent:#C77BAA;
+ --vert:#283C28;--gris:#3C3C3C;--gris-moyen:#8A7A85;--filet:#E8DCE5;--creme:#FAF6F8;
+ --ok:#2F7A4F;--ko:#B23B3B;--amb:#B5852A;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--gris);
+ font-family:"Nunito","Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.62}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+header.bandeau{background:var(--prune-fonce);color:#fff;padding:18px 0;border-bottom:4px solid var(--accent)}
+header.bandeau .wrap{padding-bottom:0}
+.chapitre{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#EAD3E3}
+.chapitre span{color:var(--accent);margin:0 6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1.25;margin:8px 0 4px;color:#fff}
+.sous{color:#EAD3E3;font-size:14.5px;margin:0}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:var(--prune-fonce);
+ margin:34px 0 0;padding-bottom:8px;border-bottom:2px solid var(--filet)}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:15px;color:var(--vert);margin:20px 0 8px;letter-spacing:.02em}
+.carte{background:#fff;border:1px solid var(--filet);border-radius:10px;padding:20px 22px;margin:18px 0;
+ box-shadow:0 1px 2px rgba(94,19,73,.05)}
+.enc{background:var(--prune-clair);border-left:5px solid var(--prune);padding:14px 18px;
+ border-radius:0 8px 8px 0;margin:18px 0;font-size:15.2px}
+.enc .t{display:block;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+ font-weight:800;color:var(--prune-fonce);margin-bottom:6px}
+.enc.al{background:#FBF4F4;border-left-color:var(--ko)}.enc.al .t{color:var(--ko)}
+.enc.ci{background:#FCF8F0;border-left-color:var(--amb)}.enc.ci .t{color:#8A6418}
+.situ{background:#FCF9FB;border:1px dashed var(--filet);border-radius:8px;padding:16px 18px;margin:16px 0;font-size:15.2px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.duo>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:15px 17px;font-size:14.8px}
+.duo .h{font-weight:800;color:var(--prune-fonce);margin-bottom:7px;font-size:14.5px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.tri>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:14px 15px;font-size:14.3px}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.quad>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:12px 13px;font-size:13.6px}
+.quad .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13px;
+ text-transform:uppercase;letter-spacing:.04em}
+.tri .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13.5px;
+ text-transform:uppercase;letter-spacing:.05em}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.8px;background:#fff}
+th,td{border:1px solid var(--filet);padding:9px 12px;text-align:left}
+thead th{background:var(--prune-clair);color:var(--prune-fonce);font-size:13.5px}
+tbody th{font-weight:600;color:var(--gris)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td,tr.tot th{background:#FBF3F8;font-weight:800;color:var(--prune-fonce)}
+.dl{display:inline-flex;align-items:center;gap:9px;background:var(--prune);color:#fff;text-decoration:none;
+ padding:11px 20px;border-radius:8px;font-weight:700;font-size:15px;margin:20px 0 4px}
+.dl:hover{background:var(--prune-fonce)}
+ol.q{padding-left:0;list-style:none;counter-reset:q}
+ol.q>li{margin:16px 0;padding-left:38px;position:relative}
+ol.q>li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:1px;
+ width:26px;height:26px;border-radius:50%;background:var(--prune-clair);color:var(--prune-fonce);
+ font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+b,strong{color:var(--vert)}
+footer{text-align:center;font-size:12.5px;color:var(--gris-moyen);padding:26px 18px 12px;
+ border-top:1px solid var(--filet);margin-top:44px}
+@media(max-width:860px){.quad{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.duo,.tri,.quad{grid-template-columns:1fr}h1{font-size:22px}}
+@media print{body{background:#fff}.dl{display:none}header.bandeau{background:#5E1349 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+td{vertical-align:top}td:first-child{white-space:nowrap}.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.tri>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:14px 15px;font-size:14.3px}.tri .h,.duo .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em}.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}.duo>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:15px 17px;font-size:14.8px}@media(max-width:640px){.tri,.duo{grid-template-columns:1fr}}.enc,tr,.tri,.duo{break-inside:avoid}
+.enc p,.cols p{margin:6px 0}.enc.ok{background:#F1F7F3;border-left-color:var(--ok)}.enc.ok .t{color:var(--ok)}
+.cols{display:grid;gap:14px;margin:16px 0}.cols.c2{grid-template-columns:1fr 1fr}.cols.c3{grid-template-columns:repeat(3,1fr)}.cols.c4{grid-template-columns:repeat(4,1fr)}.cols.c5,.cols.c6{grid-template-columns:repeat(3,1fr)}
+.cols>div>.enc{margin:0;height:100%}.cols table{margin:0}
+p.src{font-size:12.5px;color:var(--gris-moyen);line-height:1.5}
+td,th{vertical-align:top}
+@media(max-width:760px){.cols.c2,.cols.c3,.cols.c4,.cols.c5,.cols.c6{grid-template-columns:1fr}}
+table.frise{table-layout:fixed;font-size:13px}.enc h3{margin:2px 0 8px;font-family:Georgia,serif;color:var(--prune-fonce);font-size:16px}
+.cols>div>.enc{margin:0}
+</style></head><body>
+<header class="bandeau"><div class="wrap"><div class="chapitre">IOBSP NIVEAU 2 · JOURNÉE 5 · CRÉDIT IMMOBILIER (1/3) — MODULE 1</div><h1>Exemple commenté — un calendrier, deux codes</h1><p class="sous">Où se placent les protections, et laquelle joue à quel moment</p></div></header>
+<main class="wrap">
+<p>Le module énonce des délais. Cet exemple les met sur un calendrier réel, jour par jour, en distinguant à chaque étape <b>qui est protégé, par quel</b> <b>code, et contre quoi</b>.</p>
+<div class="enc"><span class="t">LA SITUATION</span><p><b>M. et M me Reynaud</b>, salariés, achètent un appartement ancien de <b>245 000 €</b> pour en faire leur résidence principale. Ils prévoient <b>18 000</b> <b>€</b> de travaux de rénovation, financés dans la même opération.</p><p>Ils signent un <b>compromis de vente</b> chez le notaire le <b>lundi 2 mars</b>. Le notaire leur en adresse la notification, qu&#x27;ils reçoivent le <b>vendredi 6</b> <b>mars</b>.</p><p>Ils mandatent un courtier. L&#x27;offre de prêt de la banque leur parvient le <b>mardi 14 avril</b>.</p><p><i>Clients et dossier fictifs, à usage pédagogique. Les règles citées ne le sont pas.</i></p></div>
+<table><tbody><tr><td></td><td><b>Étape 0 — De quel régime relève cette opération ?</b></td></tr></tbody></table>
+<div class="enc"><div class="enc"><p><b>Art. L. 313-1 et s. C. consom.</b></p></div><h3>Une seule opération, un seul régime</h3><p><b>L&#x27;ACQUISITION</b></p><p>245 000 € pour l&#x27;acquisition d&#x27;un immeuble à usage d&#x27;habitation: <b>crédit immobilier</b>, sans discussion.</p><span class="t">ET LES 18 000 € DE TRAVAUX ?</span><div class="enc"><p>Pris isolément, un prêt travaux de 18 000 € sans garantie hypothécaire relèverait du crédit à la consommation, quel que soit son montant. Mais ici les travaux sont financés dans la même opération que l&#x27;acquisition: l&#x27;ensemble relève du régime immobilier.</p></div><div class="enc ci"><span class="t">LE RÉFLEXE À ACQUÉRIR</span><p>Avant toute chose, <b>qualifier l&#x27;opération</b>. C&#x27;est elle qui détermine quels délais s&#x27;appliquent, quels documents sont dus, et quel corps de règles vous engage. Un même client peut relever des deux régimes selon la manière dont son projet est découpé.</p></div></div>
+<table><tbody><tr><td></td><td><b>Étape 1 — Le compromis, et le délai qui court</b></td></tr></tbody></table>
+<div class="enc"><div class="enc ok"><p><b>Art. L. 271-1 CCH — la vente · l&#x27;ACQUÉREUR</b></p></div><h3>Dix jours pour se rétracter — mais à partir de quand ?</h3><table><thead><tr><th><b>Date</b></th><th><b>Ce qui se passe</b></th></tr></thead><tbody><tr><td><b>Lundi 2 mars</b></td><td>Signature du compromis chez le notaire. <b>Le délai NE COURT PAS ENCORE</b></td></tr><tr><td><b>Vendredi 6 mars</b></td><td><b>Notification</b> présentée aux Reynaud. <b>Le délai commence à courir le lendemain</b></td></tr><tr><td><b>Du 7 au 16 mars</b></td><td>Dix jours <b>calendaires</b> — week-ends et jours fériés compris</td></tr><tr><td><b>Après le 16 mars</b></td><td>Le délai est purgé. La rétractation n&#x27;est plus possible</td></tr></tbody></table><div class="enc al"><p><b>L&#x27;ERREUR QUE COMMETTENT LA PLUPART DES PROFESSIONNELS DE L&#x27;IMMOBILIER</b></p><p>Compter à partir du <b>2 mars</b>, date de signature. Le texte vise la <b>NOTIFICATION</b>: le délai court à compter du lendemain de sa présentation, le 7 mars. Cinq jours d&#x27;écart — assez pour qu&#x27;une rétractation jugée tardive soit en réalité valable.<br>Deux précisions utiles: le délai court <b>même si l&#x27;acquéreur ne retire pas son recommandé</b>; et si le dernier jour tombe un samedi, un dimanche ou un jour férié, il est <b>prorogé au premier jour ouvrable suivant</b>.</p></div><div class="enc ok"><span class="t">CE QUE PERSONNE NE PEUT ENCAISSER PENDANT CES DIX JOURS</span><p>L&#x27;article <b>L. 271-2</b> interdit de recevoir de l&#x27;acquéreur non professionnel <b>le moindre versement</b>, à quelque titre que ce soit, avant l&#x27;expiration du délai — sauf dispositions expresses contraires, notamment pour l&#x27;immeuble neuf d&#x27;habitation et les contrats préliminaires de vente d&#x27;immeubles à construire.</p></div></div>
+<table><tbody><tr><td></td><td><b>Étape 2 — L&#x27;offre de prêt, et l&#x27;autre délai de dix jours</b></td></tr></tbody></table>
+<div class="enc"><div class="enc"><p><b>Art. L. 313-34 C. consom. — le crédit · l&#x27;EMPRUNTEUR</b></p></div><h3>Dix jours pendant lesquels ils ne PEUVENT PAS accepter</h3><table><thead><tr><th><b>Date</b></th><th><b>Ce qui se passe</b></th></tr></thead><tbody><tr><td><b>Mardi 14 avril</b></td><td><b>Réception</b> de l&#x27;offre de prêt. Le délai de réflexion commence</td></tr><tr><td><b>Du 15 au 24 avril</b></td><td>Dix jours pendant lesquels <b>l&#x27;acceptation est INTERDITE</b></td></tr><tr><td><b>Samedi 25 avril</b></td><td><b>11 e jour</b>: première date à laquelle ils peuvent valablement accepter</td></tr><tr><td><b>Jusqu&#x27;au 14 mai environ</b></td><td>La banque doit <b>maintenir ses conditions au moins trente jours</b> à compter de la réception</td></tr></tbody></table><div class="enc"><span class="t">LA QUESTION QUE LES REYNAUD VONT POSER — ET LA RÉPONSE</span><p>« Nous sommes d&#x27;accord, le vendeur nous presse, peut-on signer tout de suite ?»<br><b>Non — et ce n&#x27;est pas négociable.</b> Le délai de réflexion n&#x27;est pas une faveur qui leur est faite: c&#x27;est une <b>interdiction faite aux deux</b> <b>parties</b>. Ils ne peuvent pas y renoncer, même volontairement. La règle est d&#x27;<b>ordre public</b>, et la sanction de sa méconnaissance est la <b>nullité du contrat de prêt</b>.<br>Un courtier qui laisserait accepter au 8 e jour pour « aller plus vite» fragiliserait tout le financement de son client.</p></div><div class="enc ok"><p><b>CE QU&#x27;IL FAUT LEUR DIRE POUR LES RASSURER</b></p><p>Dix jours d&#x27;interdiction, trente jours de maintien: ils disposent en réalité d&#x27;une <b>vingtaine de jours</b> pour décider, sans que la banque puisse modifier son taux. Le délai n&#x27;est pas du temps perdu — c&#x27;est du temps <b>garanti</b>.</p></div></div>
+<table><tbody><tr><td></td><td><b>Les deux délais côte à côte — sur ce dossier</b></td></tr></tbody></table>
+<table><thead><tr><th></th><th><b>Délai SRU</b></th><th><b>Délai Scrivener</b></th></tr></thead><tbody><tr><td><b>Qui est protégé</b></td><td>L&#x27;ACQUÉREUR non professionnel</td><td>L&#x27;EMPRUNTEUR</td></tr><tr><td><b>Contre quoi</b></td><td>Un engagement de vente pris trop vite</td><td>Un engagement de crédit pris trop vite</td></tr><tr><td><b>Quel code</b></td><td>Construction et habitation, <b>L. 271-1</b></td><td>Consommation, <b>L. 313-34</b></td></tr><tr><td><b>Point de départ</b></td><td>Lendemain de la <b>notification</b> de l&#x27;avant-contrat — 7 mars</td><td><b>Réception</b> de l&#x27;offre de prêt — 14 avril</td></tr><tr><td><b>Nature</b></td><td><b>RÉTRACTATION</b>: revenir sur un engagement pris</td><td><b>RÉFLEXION</b>: interdiction de s&#x27;engager</td></tr><tr><td><b>Peut-on y renoncer ?</b></td><td>C&#x27;est une faculté: l&#x27;acquéreur peut ne pas l&#x27;exercer</td><td><b>Non</b>: l&#x27;acceptation avant le 11 e jour est nulle</td></tr></tbody></table>
+<div class="enc"><span class="t">LA PHRASE À RETENIR MOT POUR MOT</span><p><b>L&#x27;acquéreur se rétracte de ce qu&#x27;il a signé. L&#x27;emprunteur réfléchit avant de signer.</b><br>Et l&#x27;expression « délai de rétractation du prêt», que vous entendrez, <b>n&#x27;existe pas</b>.</p></div>
+<table><tbody><tr><td></td><td><b>Étape 3 — Si la banque refuse</b></td></tr></tbody></table>
+<div class="enc"><div class="enc"><p><b>L&#x27;interdépendance — l&#x27;apport le plus protecteur de Scrivener</b></p></div><h3>Le prêt n&#x27;est pas obtenu: que deviennent les Reynaud ?</h3><p>La vente est réputée conclue <b>sous la condition suspensive de l&#x27;obtention du prêt</b>. Si le prêt n&#x27;est pas obtenu, la <b>vente est caduque</b> et les <b>sommes versées doivent leur être restituées</b>.</p><div class="enc ci"><span class="t">POURQUOI CELA FIGURE SUR LES PUBLICITÉS</span><p>Tout document publicitaire de crédit immobilier doit porter <b>trois mentions</b>: le délai de réflexion de dix jours · la subordination de la vente à l&#x27;obtention du prêt · la restitution des sommes versées si le prêt n&#x27;est pas obtenu.<br><b>Ce sont exactement les trois apports de Scrivener</b> — le délai, l&#x27;interdépendance, la restitution. La publicité récapitule la loi.</p></div></div>
+<table><tbody><tr><td></td><td><b>Ce que le courtier devait faire, et à quel titre</b></td></tr></tbody></table>
+<table><thead><tr><th><b>Obligation</b></th><th><b>Fondement et portée</b></th></tr></thead><tbody><tr><td><b>Tenir à disposition des informations générales</b> <b>sur les contrats de crédit</b></td><td>Le texte impose cette obligation au prêteur <b>ET À L&#x27;INTERMÉDIAIRE DE CRÉDIT</b>: sur papier, sur support durable ou sous forme électronique, de manière <b>permanente</b>. Elle vous vise directement</td></tr><tr><td><b>Évaluer la solvabilité</b></td><td>Transposée en matière immobilière. Le mécanisme est celui vu en journée 3: l&#x27;intermédiaire recueille, le prêteur vérifie</td></tr><tr><td><b>Fournir des explications adéquates</b></td><td>Adaptées au niveau de connaissance du client — vous reconnaissez l&#x27;article R. 519-22 vu en journée 5</td></tr><tr><td><b>Vérifier la conformité de ses supports</b></td><td>Les trois mentions obligatoires, sur toute publicité portant sur une opération de crédit immobilier</td></tr></tbody></table>
+<div class="enc ok"><p><b>CE QUE L&#x27;EXEMPLE DÉMONTRE</b></p><p><b>Deux codes, deux qualités d&#x27;une même personne, deux moments.</b> Les Reynaud sont acquéreurs au début de l&#x27;opération, emprunteurs plus tard. Ce ne sont pas deux dossiers: c&#x27;est un seul client, protégé deux fois, par deux textes différents.</p><p>Et une chose que l&#x27;exemple ne montre pas mais qu&#x27;il faut avoir en tête: <b>ce module s&#x27;arrête ici</b>. Le type de prêt retenu, les prêts aidés mobilisables, la garantie choisie et le contenu de l&#x27;offre appartiennent aux journées suivantes. J 5 pose le cadre — elle ne finance rien.</p></div>
+<p><i>Sources vérifiées au 19 août 2026: code de la consommation, art. L. 313-1 et suivants, dont L. 313-34 · loi n° 79-596 du 13 juillet 1979 (Scrivener 2) · ordonnance n°</i> <i>2016-351 du 25 mars 2016 · code de la construction et de l&#x27;habitation, art. L. 271-1 et L. 271-2 · loi n° 2000-1208 du 13 décembre 2000 (SRU), art. 72 · loi n° 2015-990 du 6</i></p>
+<div class="enc"><p><i>août 2015, art. 210 · arrêté du 18 juillet 2022, annexe A · art. L. 312-4 C. consom. (crédits travaux non garantis), vérifié le 18/11/2026. Les dates du calendrier sont fictives et servent</i></p></div>
+<p><i>uniquement à situer les délais les uns par rapport aux autres.</i></p>
+</main>
+<footer>TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</footer>
+</body></html>
